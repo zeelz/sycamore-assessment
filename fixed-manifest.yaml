@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sycamore-api
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: sycamore-api
+  template:
+    metadata:
+      labels:
+        app: sycamore-api
+    spec:
+      containers:
+        - name: api
+          image: node:18-alpine
+          command:
+            [
+              "node",
+              "-e",
+              "let arr=[]; setInterval(() => { arr = new Array(1000000).fill('data') }, 100)",
+              "const http = require('http')",
+              "http.createServer((req, res) => {res.send("working")}).listen(3000)"
+
+            ]
+          resources:
+            limits:
+              memory: "256Mi"
+            requests:
+              memory: "128Mi"
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 3000
+            initialDelaySeconds: 5
+            periodSeconds: 5
