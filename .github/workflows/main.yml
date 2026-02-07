@@ -39,6 +39,7 @@ jobs:
           severity: HIGH,CRITICAL
           exit-code: 1
           ignore-unfixed: true
+          cache: false
 
       - name: Push image
         run: |
