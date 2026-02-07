@@ -19,9 +19,7 @@ spec:
             [
               "node",
               "-e",
-              "let arr=[]; setInterval(() => { arr = new Array(1000000).fill('data') }, 100)",
-              "const http = require('http')",
-              "http.createServer((req, res) => {res.send("working")}).listen(3000)"
+              "let arr=[]; setInterval(() => { arr = new Array(1000).fill('data') }, 100); const http = require('http'); http.createServer((req, res) => {res.end('OK')}).listen(3000)"
 
             ]
           resources:
