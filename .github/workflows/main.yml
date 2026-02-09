@@ -27,6 +27,12 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Regenerate package-lock.json
+        run: |
+          rm -f package-lock.json
+          npm install
+          npm ls glob tar
+
       - name: Build docker image
         run: |
           docker build --no-cache -t ghcr.io/${{ github.repository }}/node-api:latest .
