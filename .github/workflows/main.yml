@@ -29,23 +29,23 @@ jobs:
 
       - name: Build docker image
         run: |
-          docker build --no-cache -t ghcr.io/${{ github.repository }}/node-app:latest .
+          docker build --no-cache -t ghcr.io/${{ github.repository }}/node-api:latest .
 
 
-      - name: debug
-        run: |
-                docker run --rm ghcr.io/${{ github.repository }}/node-app:latest npm list tar glob
-
-    #   - name: Trivy scan
-    #     uses: aquasecurity/trivy-action@0.33.1
-    #     with:
-    #       image-ref: ghcr.io/${{ github.repository }}/node-app:latest
-    #       format: table
-    #       severity: HIGH,CRITICAL
-    #       exit-code: 1
-    #       ignore-unfixed: true
-    #       cache: false
-
-    #   - name: Push image
+    #   - name: debug
     #     run: |
-    #       docker push ghcr.io/${{ github.repository }}/node-app:latest
+    #             docker run --rm ghcr.io/${{ github.repository }}/node-api:latest npm list tar glob
+
+      - name: Trivy scan
+        uses: aquasecurity/trivy-action@0.33.1
+        with:
+          image-ref: ghcr.io/${{ github.repository }}/node-api:latest
+          format: table
+          severity: HIGH,CRITICAL
+          exit-code: 1
+          ignore-unfixed: true
+          cache: false
+
+      - name: Push image
+        run: |
+          docker push ghcr.io/${{ github.repository }}/node-api:latest
